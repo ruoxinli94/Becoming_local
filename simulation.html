@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becoming - Conversation Simulation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="chat-container">
+            <div class="chat-header bg-secondary">
+                <div class="d-flex align-items-center">
+                    <img src="assets/images/avatar.png" alt="AI Simulation" class="rounded-circle me-2" width="40">
+                    <div>
+                        <h5 class="mb-0">Simulation Mode</h5>
+                        <small>Manager Conversation</small>
+                    </div>
+                </div>
+                <div class="ms-auto">
+                    <a href="chatbot.html" class="text-white"><i class="fas fa-times"></i></a>
+                </div>
+            </div>
+            
+            <div class="alert alert-info m-2 rounded-3">
+                <p class="mb-0"><i class="fas fa-info-circle"></i> This is a simulation to practice your conversation with your manager about work-life balance. I'll play the role of your manager. You can end the simulation at any time.</p>
+            </div>
+            
+            <div class="chat-body">
+                <div class="message message-bot">
+                    <p><strong>Manager:</strong> Good morning! You wanted to talk about something?</p>
+                    <span class="message-time">Simulation started</span>
+                </div>
+                
+                <div class="message message-user">
+                    <p>Good morning. Yes, I'd like to discuss my workload and how it's been affecting my work-life balance lately.</p>
+                    <span class="message-time">Just now</span>
+                </div>
+                
+                <div class="message message-bot">
+                    <p><strong>Manager:</strong> Oh? I thought you've been handling everything well. What seems to be the issue?</p>
+                    <span class="message-time">Just now</span>
+                </div>
+                
+                <div class="d-flex flex-column gap-2 p-3">
+                    <button class="btn btn-outline-primary text-start p-2">I've been working late almost every day and responding to emails on weekends, which is starting to affect my wellbeing.</button>
+                    
+                    <button class="btn btn-outline-primary text-start p-2">I'm concerned that the current pace isn't sustainable. I want to do my best work, but I need a better balance.</button>
+                    
+                    <button class="btn btn-outline-primary text-start p-2">I feel overwhelmed with the current workload and I'm worried about burnout if we don't address this.</button>
+                    
+                    <button class="btn btn-outline-primary text-start p-2">Custom response (type your own)</button>
+                </div>
+            </div>
+            
+            <div class="chat-footer">
+                <div class="d-flex justify-content-between p-2">
+                    <button class="btn btn-secondary" onclick="window.location.href='chatbot.html'">End Simulation</button>
+                    <button class="btn btn-primary" onclick="window.location.href='future-self.html'">Fast Forward</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="chatbot.html" class="nav-item active">
+                <i class="nav-icon fas fa-comment-alt"></i>
+                <span>Coach</span>
+            </a>
+            <a href="growth-plan.html" class="nav-item">
+                <i class="nav-icon fas fa-chart-line"></i>
+                <span>Growth</span>
+            </a>
+            <a href="daily-tracker.html" class="nav-item">
+                <i class="nav-icon fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="journaling.html" class="nav-item">
+                <i class="nav-icon fas fa-book"></i>
+                <span>Journal</span>
+            </a>
+            <a href="scheduler.html" class="nav-item">
+                <i class="nav-icon fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
