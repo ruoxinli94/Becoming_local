@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becoming - AI Coach</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Additional styles for the chat interface */
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        
+        .chat-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            flex-shrink: 0;
+        }
+        
+        .chat-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            padding-bottom: 80px; /* Ensure enough space for footer */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            max-width: 80%;
+        }
+        
+        .bot-message {
+            background-color: #e8e8fa;
+            align-self: flex-start;
+        }
+        
+        .user-message {
+            background-color: #fff9c4;
+            align-self: flex-end;
+        }
+        
+        .suggestion {
+            background-color: #e0f7e0;
+            align-self: flex-end;
+            margin-left: auto;
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .chat-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eee;
+            z-index: 100;
+        }
+        
+        .input-container {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            padding: 5px 15px;
+        }
+        
+        .message-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 10px;
+            background: transparent;
+        }
+        
+        .voice-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        /* Markdown styling */
+        .bot-message ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        
+        .bot-message strong {
+            font-weight: 600;
+        }
+        
+        .bot-message p {
+            margin-bottom: 10px;
+        }
+        
+        .bot-message p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .waiting {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 20px;
+            background-color: #e8e8fa;
+            align-self: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #6c5ce7;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite;
+        }
+        
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-8px);
+            }
+        }
+        
+        /* Cursor animation for typing effect */
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 16px;
+            background-color: #333;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+        
+        /* Action button styling */
+        .action-button {
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 15px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .action-button:hover {
+            background-color: #5649c0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .action-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        /* Envelope button styling */
+        .envelope-button {
+            background-color: #ffd43b;
+            color: #5a4800;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 15px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .envelope-button:hover {
+            background-color: #fcc419;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Chat messages area -->
+        <div class="chat-body" id="chatBody">
+            <!-- Initial bot messages will be added via JS for typing effect -->
+        </div>
+        
+        <!-- Chat input area -->
+        <div class="chat-footer">
+            <div class="input-container">
+                <input type="text" class="message-input" placeholder="Type a message..." autofocus>
+                <button class="voice-btn">
+                    <i class="fas fa-microphone"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageInput = document.querySelector('.message-input');
+            const voiceButton = document.querySelector('.voice-btn');
+            const chatBody = document.getElementById('chatBody');
+            
+            // Set chat container width to match footer width
+            function adjustContainerWidth() {
+                const footerWidth = document.querySelector('.chat-footer').offsetWidth;
+                document.querySelector('.chat-container').style.maxWidth = footerWidth + 'px';
+            }
+            
+            // Check if returning from exploration or comparison
+            const urlParams = new URLSearchParams(window.location.search);
+            const returnFromExploration = urlParams.get('returnFromExploration');
+            const returnFromComparison = urlParams.get('returnFromComparison');
+            
+            // Run on load and on resize
+            adjustContainerWidth();
+            window.addEventListener('resize', adjustContainerWidth);
+            
+            // Initial bot messages with HTML formatting
+            const initialMessages = [
+                `<p>Thanks for letting us know you, Ke! Let me summarize your profile:</p>
+                <p><strong>🌟 Ke's Profile Summary</strong></p>
+                <ul>
+                    <li><strong>Current Title</strong>: Senior Product Manager, GenAI</li>
+                    <li><strong>Future Aspiration</strong>: Director/VP of Product, GenAI</li>
+                    <li><strong>Career Stage</strong>: Mid-career</li>
+                    <li><strong>Top Priorities</strong>: Job stability, work-life balance, job satisfaction</li>
+                    <li><strong>Clarity on Career Goal</strong>: ✅ Yes</li>
+                    <li><strong>Time Horizon for Goal</strong>: ⏳ 1–5 years</li>
+                    <li><strong>Change Motivation Style</strong>:
+                        <ul>
+                            <li>✅ Community support over coach/mentor</li>
+                            <li>✅ Words of encouragement over progress tracker</li>
+                            <li>✅ Curated reading list over online courses</li>
+                        </ul>
+                    </li>
+                    <li><strong>Personality</strong>: 🔊 Extrovert</li>
+                </ul>`,
+                
+                `<p>I got a little creative, here's my understanding of you, how did I do?</p>
+                <p><strong>💼 Career Goal Statement</strong></p>
+                <p>You're aiming to grow from a Sr PM in GenAI into a Director or VP role within a 5 year horizon, where you can lead with impact while maintaining life balance, stability, and joy in your work.</p>
+                <p><strong>🔮 Behavioral Prediction</strong></p>
+                <p>You thrive on energy, connection, and momentum. You're driven, vocal, and inspired by people around you. Supportive communities and uplifting encouragement keep you moving forward. You learn best through engaging, real-world insights — not just structured content. When making changes, you take bold steps when you feel emotionally lit up and socially supported.</p>`
+            ];
+            
+            // Predefined bot responses
+            const botResponses = [
+                `<p>Absolutely! How's this?</p>
+                <p><strong>🔮 Behavioral Prediction</strong></p>
+                <p>You take action when you're emotionally energized and socially engaged. You're a fast implementer once motivated — especially when you're surrounded by inspiring people or ideas. You thrive in environments that feel dynamic and communal. Encouraging check-ins, social learning (like group chats or live sessions), and energizing prompts work best for you. You're more likely to adopt habits or tools that come with a sense of shared journey, uplifting feedback, and tangible emotional connection.</p>`,
+                
+                `<p>Glad you like it. Since you are clear in your goals, we will skip our exploration step, and direct you to identify blockers (aka things you can work on to become who you want to become)?</p>`,
+                
+                `<p>It is a feature we provide to users who are not clear in goals. This feature helps users simulate different scenarios/paths of their future career.</p>
+                <p>Are you interested?</p>`,
+                
+                `<p>Love that you're open to explore <em>while</em> feeling mostly clear. Based on your profile as a <strong>Sr PM in GenAI</strong>, here are a few adjacent or upward career path scenarios to start. You can simulate by drag & drop to re-prioritize your top 3 KPIs (what you care most at work) and by changing your goal time horizon.</p>`
+            ];
+            
+            let responseIndex = 0;
+            
+            // Additional responses for when returning from exploration
+            const postExplorationResponses = [
+                `<p>Which one resonates most with your current life state?</p>`,
+                
+                `<p>Absolutely, we added a few dimensions to help you decide. Feel free to propose comparison dimensions you care about.</p>`
+            ];
+            
+            // Responses for when user skips to blockers
+            const blockerResponses = [
+                `<p>Absolutely. Blockers identify the gap between the current and future self. They are not inadequacy, but opportunities to invest in. Once you agree on the blockers, I will do a fun exercise with you to generate a future self letter…but be patient ;)</p>`,
+                
+                `<p>On the way of achieving Treatment A, here are <strong>3 succinct blockers</strong> that could stand in the way, how do they look?</p>
+                <p>🧭 <strong>Org-Wide Visibility</strong><br>
+                Limited exposure outside your immediate team may reduce recognition as a cross-functional leader.</p>
+                <p>🧠 <strong>Strategic Positioning</strong><br>
+                Current focus may lean more on execution than on shaping org-level product strategy.</p>
+                <p>🪟 <strong>Growth Ceiling in Role</strong><br>
+                Existing scope might not offer enough stretch or scale to demonstrate Director-level readiness.</p>`
+            ];
+            
+            // Flag to auto-continue after future self question
+            let autoAdvanceAfterFutureSelfQuestion = false;
+            
+            // Updated response to add the envelope button
+            const blockerFollowupResponses = [
+                `<p>Good question. <strong>Org-wide visibility</strong> is about how far your <em>impact and recognition</em> travel. <strong>Growth ceiling</strong> is about how far your <em>role and responsibilities</em> can take you.</p>`,
+                
+                `<p>How about these 3</p>
+                <ul>
+                    <li><strong>Blurry Scope & Metrics</strong> – unclear expectations make it hard to show progress or know what's "good enough."</li>
+                    <li><strong>Internal Pressure to Overdeliver</strong> – self-imposed standards may drain you even when no one else is asking for more.</li>
+                    <li><strong>Org-Wide Visibility</strong> – felt too close to "growth ceiling" → let's swap this one out.</li>
+                </ul>`,
+                
+                `<p>Great that I am knowing you more now! Again, these blockers only identify your current gap. We know it changes over time, you can always chat with me when change is needed. Now, would you say these are the blockers you want to work on?</p>`,
+                
+                `<p>Great! Making life-long changes is not only scary, but also hard. Picturing your <strong>future self</strong> is one of the most powerful tools on your Becoming journey. Why?</p>`,
+                
+                `<p><strong>🌱 It expands your identity. It bridges gap between now and future. It creates emotional clarity and eventually motivation.</strong> Instead of saying <em>"I'm trying to become a director"</em>, you start thinking <em>"I'm growing into executive leadership."</em> You begin acting like the person you're becoming, not the person you <strong>fear</strong> you are now.</p>
+                <p>Emotions are often underrated. It is a kind of motivation lasts longer than checklist goals. When you visualize a future version of you - with vivid emotions, context, and feelings - becoming becomes easier.</p>
+                <p>Now, I want you to close your eyes, imagine you are now the director/VP of product in GenAI, how are you feeling?</p>
+                <ul>
+                    <li>Confident and respected by peers</li>
+                    <li>Excited about strategic impact</li>
+                    <li>Balanced between work and personal life</li>
+                    <li>Proud of my journey and growth</li>
+                </ul>`,
+                
+                `<p>Great, this will help you tap into deeper, intrinsic motivation. Life gets messy. A letter from your future self <strong>creates a narrative you can return to and gives you an anchor in hard moments.</strong> It reminds you what you're working toward and who you're capable of being.</p>
+                <p>Here's a <strong>Future Self Letter</strong> tailored to you. This is written as if your future self, who has already made it to a <strong>Director/VP Product role in GenAI</strong>.</p>`
+            ];
+            
+            let blockerIndex = 0;
+            let blockerFollowupIndex = 0;
+            let postExplorationIndex = 0;
+            
+            // Function to create a message container
+            function createMessageContainer(isBot) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = isBot ? 'message bot-message' : 'message user-message';
+                return messageDiv;
+            }
+            
+            // Function to add "Start Comparison" button
+            function addComparisonButton() {
+                const actionContainer = document.createElement('div');
+                actionContainer.className = 'action-container';
+                
+                const comparisonButton = document.createElement('button');
+                comparisonButton.className = 'action-button';
+                comparisonButton.innerHTML = 'Start Comparison <i class="fas fa-balance-scale ms-2"></i>';
+                comparisonButton.addEventListener('click', function() {
+                    window.location.href = 'scenario-comparison.html';
+                });
+                
+                actionContainer.appendChild(comparisonButton);
+                chatBody.appendChild(actionContainer);
+                scrollToBottom();
+            }
+            
+            // Function to add "Open the envelope" button
+            function addEnvelopeButton() {
+                // Check if the envelope button already exists
+                if (document.querySelector('.envelope-button')) {
+                    return; // Don't add it again if it already exists
+                }
+                
+                const envelopeContainer = document.createElement('div');
+                envelopeContainer.className = 'action-container';
+                
+                const envelopeButton = document.createElement('button');
+                envelopeButton.className = 'envelope-button';
+                envelopeButton.innerHTML = 'Open the envelope <i class="fas fa-envelope-open ms-2"></i>';
+                envelopeButton.addEventListener('click', function() {
+                    window.location.href = 'future-self.html';
+                });
+                
+                envelopeContainer.appendChild(envelopeButton);
+                chatBody.appendChild(envelopeContainer);
+                scrollToBottom();
+            }
+            
+            // Function to scan for Future Self Letter mention and add envelope button if needed
+            function checkForFutureSelfLetter() {
+                const messages = document.querySelectorAll('.bot-message');
+                // Check the last few messages to find the one mentioning "Future Self Letter"
+                for (let i = messages.length - 1; i >= Math.max(0, messages.length - 5); i--) {
+                    if (messages[i].innerHTML.includes('Future Self Letter')) {
+                        // If found, add envelope button right after this message
+                        addEnvelopeButton();
+                        break;
+                    }
+                }
+            }
+            
+            // Function to simulate typing effect - faster, more like Claude's speed
+            function typeText(element, html, onComplete) {
+                // Super fast Claude-like typing effect
+                // Just display entire content at once with minimal animation for speed
+                element.innerHTML = html;
+                
+                // Check for Future Self Letter mention in the message
+                if (html.includes('Future Self Letter')) {
+                    setTimeout(() => {
+                        // If the letter is mentioned but no envelope button is present, add it
+                        if (!document.querySelector('.envelope-button')) {
+                            addEnvelopeButton();
+                        }
+                    }, 100);
+                }
+                
+                // Call completion callback immediately
+                if (onComplete) {
+                    setTimeout(onComplete, 50);
+                }
+            }
+            
+            // Optional typing indicator - very brief display
+            function showTypingIndicator() {
+                // For Claude-like instant responses, we can optionally skip this
+                // But keeping a very brief indicator for UX feedback
+                const typingIndicator = document.createElement('div');
+                typingIndicator.className = 'waiting';
+                typingIndicator.innerHTML = `
+                    <div class="typing-indicator">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                `;
+                typingIndicator.id = 'typingIndicator';
+                chatBody.appendChild(typingIndicator);
+                scrollToBottom();
+                
+                // Auto-hide after a very short time if not manually hidden
+                setTimeout(() => {
+                    const indicator = document.getElementById('typingIndicator');
+                    if (indicator) {
+                        indicator.remove();
+                    }
+                }, 200);
+            }
+            
+            // Function to hide typing indicator
+            function hideTypingIndicator() {
+                const indicator = document.getElementById('typingIndicator');
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+            
+            // Improved scroll function
+            function scrollToBottom() {
+                chatBody.scrollTop = chatBody.scrollHeight;
+                
+                // Double-check scroll position after a short delay
+                // (fixes issues with content still loading)
+                setTimeout(() => {
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 100);
+            }
+            
+            // Function to add "Start Exploring" button
+            function addExploreButton() {
+                const actionContainer = document.createElement('div');
+                actionContainer.className = 'action-container';
+                
+                const exploreButton = document.createElement('button');
+                exploreButton.className = 'action-button';
+                exploreButton.innerHTML = 'Start Exploring <i class="fas fa-rocket ms-2"></i>';
+                exploreButton.addEventListener('click', function() {
+                    window.location.href = 'career-exploration.html';
+                });
+                
+                actionContainer.appendChild(exploreButton);
+                chatBody.appendChild(actionContainer);
+                scrollToBottom();
+            }
+            
+            // Start with first bot message
+            function startConversation() {
+                // If returning from exploration, show post-exploration messages
+                if (returnFromExploration === 'true') {
+                    // Clear URL parameter
+                    window.history.replaceState({}, document.title, 'chatbot.html');
+                    
+                    // Show the first post-exploration message
+                    const explorationMessageContainer = createMessageContainer(true);
+                    chatBody.appendChild(explorationMessageContainer);
+                    
+                    typeText(explorationMessageContainer, postExplorationResponses[0], () => {
+                        scrollToBottom();
+                    });
+                }
+                // If returning from comparison, show post-comparison message
+                else if (returnFromComparison === 'true') {
+                    // Clear URL parameter
+                    window.history.replaceState({}, document.title, 'chatbot.html');
+                    
+                    // Show the post-comparison message
+                    const comparisonMessageContainer = createMessageContainer(true);
+                    chatBody.appendChild(comparisonMessageContainer);
+                    
+                    typeText(comparisonMessageContainer, blockerResponses[0], () => {
+                        scrollToBottom();
+                    });
+                    
+                    // Set global flag
+                    window.returnFromComparison = 'true';
+                } 
+                else {
+                    // Start normal conversation
+                    const firstMessageContainer = createMessageContainer(true);
+                    chatBody.appendChild(firstMessageContainer);
+                    
+                    // Type the first message with HTML
+                    typeText(firstMessageContainer, initialMessages[0], () => {
+                        scrollToBottom();
+                        
+                        // Show typing indicator
+                        setTimeout(() => {
+                            showTypingIndicator();
+                            
+                            // Type the second message almost immediately 
+                            setTimeout(() => {
+                                hideTypingIndicator();
+                                const secondMessageContainer = createMessageContainer(true);
+                                chatBody.appendChild(secondMessageContainer);
+                                
+                                typeText(secondMessageContainer, initialMessages[1], () => {
+                                    scrollToBottom();
+                                });
+                            }, 200);
+                        }, 200);
+                    });
+                }
+            }
+            
+            // Function to send message
+            function sendMessage() {
+                const message = messageInput.value.trim();
+                if (message) {
+                    // Create user message element
+                    const userMessage = document.createElement('div');
+                    userMessage.className = 'message user-message';
+                    userMessage.innerHTML = `<p>${message}</p>`;
+                    
+                    // Add to chat
+                    chatBody.appendChild(userMessage);
+                    
+                    // Clear input
+                    messageInput.value = '';
+                    
+                    // Scroll to bottom
+                    scrollToBottom();
+                    
+                    // Show typing indicator
+                    showTypingIndicator();
+                    
+                    // Almost immediate bot response
+                    setTimeout(() => {
+                        // Hide typing indicator
+                        hideTypingIndicator();
+                        
+                        // Check if user wants to skip to blockers when at question about exploration
+                        if (responseIndex === 2 && message.toLowerCase().includes("no") && 
+                           (message.toLowerCase().includes("clear") || message.toLowerCase().includes("blocker"))) {
+                            // User wants to skip to blockers
+                            const botMessage = createMessageContainer(true);
+                            chatBody.appendChild(botMessage);
+                            
+                            typeText(botMessage, blockerResponses[0], () => {
+                                scrollToBottom();
+                                // Set flag for blocker flow
+                                window.skipToBlockers = true;
+                            });
+                            // Skip next regular response
+                            responseIndex = 3;
+                        }
+                        // If we're in post-exploration flow
+                        else if (window.returnFromExploration === 'true') {
+                            postExplorationIndex++;
+                            if (postExplorationIndex < postExplorationResponses.length) {
+                                const botMessage = createMessageContainer(true);
+                                chatBody.appendChild(botMessage);
+                                
+                                typeText(botMessage, postExplorationResponses[postExplorationIndex], () => {
+                                    scrollToBottom();
+                                    
+                                    // Add comparison button after second message
+                                    if (postExplorationIndex === 1) {
+                                        addComparisonButton();
+                                    }
+                                });
+                            } else {
+                                // Generic response if we've used all post-exploration responses
+                                const botMessage = createMessageContainer(true);
+                                chatBody.appendChild(botMessage);
+                                
+                                typeText(botMessage, "<p>Would you like to explore any other aspects of these career paths before making a decision?</p>", () => {
+                                    scrollToBottom();
+                                });
+                            }
+                        }
+                        // If we're in post-comparison flow
+                        else if (window.returnFromComparison === 'true') {
+                            if (blockerFollowupIndex < blockerFollowupResponses.length) {
+                                const botMessage = createMessageContainer(true);
+                                chatBody.appendChild(botMessage);
+                                
+                                typeText(botMessage, blockerFollowupResponses[blockerFollowupIndex], () => {
+                                    scrollToBottom();
+                                    
+                                    // Auto-continue after the future self question (index 3)
+                                    if (blockerFollowupIndex === 3) {
+                                        // Set flag to continue automatically without user input
+                                        autoAdvanceAfterFutureSelfQuestion = true;
+                                        // Trigger next message automatically after a short delay
+                                        setTimeout(() => {
+                                            const nextBotMessage = createMessageContainer(true);
+                                            chatBody.appendChild(nextBotMessage);
+                                            
+                                            typeText(nextBotMessage, blockerFollowupResponses[4], () => {
+                                                scrollToBottom();
+                                                blockerFollowupIndex = 5; // Update index to skip the auto-displayed message
+                                            });
+                                        }, 800); // Shorter delay for more responsive feel
+                                    }
+                                    
+                                    // Add envelope button when mentioning Future Self Letter (index 5)
+                                    if (blockerFollowupIndex === 5) {
+                                        setTimeout(() => {
+                                            checkForFutureSelfLetter();
+                                        }, 300);
+                                    }
+                                });
+                                
+                                // Only increment if we're not auto-advancing (to avoid double increments)
+                                if (!autoAdvanceAfterFutureSelfQuestion || blockerFollowupIndex !== 3) {
+                                    blockerFollowupIndex++;
+                                }
+                            } else {
+                                // Default response after all follow-up messages
+                                const botMessage = createMessageContainer(true);
+                                chatBody.appendChild(botMessage);
+                                
+                                typeText(botMessage, "<p>I hope you find the letter from your future self inspiring! Let me know if you'd like to discuss anything else about your career growth journey.</p>", () => {
+                                    scrollToBottom();
+                                });
+                            }
+                        }
+                        // If we're in the skip to blockers flow
+                        else if (window.skipToBlockers === true) {
+                            const botMessage = createMessageContainer(true);
+                            chatBody.appendChild(botMessage);
+                            
+                            typeText(botMessage, blockerResponses[1], () => {
+                                scrollToBottom();
+                                // Set flag to continue to blocker followup flow
+                                window.returnFromComparison = 'true';
+                            });
+                            // Reset the flag after showing blocker message
+                            window.skipToBlockers = false;
+                        }
+                        // If we're in the regular flow
+                        else if (responseIndex < botResponses.length) {
+                            const botMessage = createMessageContainer(true);
+                            chatBody.appendChild(botMessage);
+                            
+                            typeText(botMessage, botResponses[responseIndex], () => {
+                                scrollToBottom();
+                                
+                                // Add explore button when we reach the "open to explore" response (index 3)
+                                if (responseIndex === 3) {
+                                    addExploreButton();
+                                }
+                            });
+                            
+                            responseIndex++;
+                        } else {
+                            // Generic response if we've used all predefined ones
+                            const botMessage = createMessageContainer(true);
+                            chatBody.appendChild(botMessage);
+                            
+                            typeText(botMessage, "<p>Thank you for your message! Let's continue our conversation about your career development. What specific aspects would you like to explore further?</p>", () => {
+                                scrollToBottom();
+                            });
+                        }
+                    }, 200);
+                }
+            }
+            
+            // Send message on button click
+            voiceButton.addEventListener('click', function() {
+                if (messageInput.value.trim()) {
+                    sendMessage();
+                }
+            });
+            
+            // Send message on Enter key
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Start the conversation when page loads
+            startConversation();
+            
+            // Set the returnFromExploration flag based on URL parameter
+            if (returnFromExploration === 'true') {
+                // This variable needs to persist for the sendMessage function
+                window.returnFromExploration = 'true';
+            }
+            
+            // Handle window resize to ensure proper scrolling
+            window.addEventListener('resize', scrollToBottom);
+        });
+    </script>
+</body>
+</html>

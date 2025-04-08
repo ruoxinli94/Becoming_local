@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becoming - Scenario Comparison</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: var(--font-primary);
+        }
+        
+        .mobile-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dashboard-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .scenario-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+            border-radius: 25px;
+            padding: 5px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .scenario-option {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .scenario-option.active {
+            background-color: #6c5ce7;
+            color: white;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+        }
+        
+        .comparison-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table th:first-child {
+            width: 120px;
+            text-align: left;
+        }
+        
+        .stars-rating {
+            color: #ffc107;
+            letter-spacing: 2px;
+        }
+        
+        .stars-empty {
+            color: #333;
+        }
+        
+        .pro-item, .con-item {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 18px;
+        }
+        
+        .pro-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #333;
+        }
+        
+        .energy-match {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        .energy-icon {
+            margin-right: 10px;
+        }
+        
+        .energy-positive {
+            color: #2ecc71;
+        }
+        
+        .energy-warning {
+            color: #f39c12;
+        }
+        
+        .back-button {
+            margin-bottom: 20px;
+            color: #6c5ce7;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 576px) {
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            
+            .comparison-table th, .comparison-table td {
+                padding: 10px 8px;
+            }
+            
+            .stars-rating {
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <a href="chatbot.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Chat
+        </a>
+        
+        <div class="dashboard-title">Scenario Simulation Dashboard</div>
+        
+        <div class="scenario-toggle">
+            <div class="scenario-option active">A</div>
+            <div class="scenario-option">F</div>
+        </div>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Treatment A:<br>Balanced Technical Track<br>(Control)</th>
+                    <th>Treatment F: Commerce GM<br>Track (Treatment 3)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Hypothesis</strong></td>
+                    <td>Staying the course in a strong GenAI IC path with stable trajectory leads to Director-level growth with balance</td>
+                    <td>Transitioning into a cross-functional GM role will lead to faster growth in scope and strategic influence</td>
+                </tr>
+                <tr>
+                    <td><strong>KPI Match Summary</strong></td>
+                    <td>
+                        <div class="stars-rating">★★★★★</div>
+                        <div class="stars-rating">★★★★★</div>
+                        <div class="stars-rating">★★★★<span class="stars-empty">★</span></div>
+                    </td>
+                    <td>
+                        <div class="stars-rating">★★★★</div>
+                        <div class="stars-rating">★★★★</div>
+                        <div class="stars-rating">★★<span class="stars-empty">★★★</span> Satisfaction</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Pros</strong></td>
+                    <td>
+                        <div class="pro-item">Strong domain credibility in GenAI</div>
+                        <div class="pro-item">Maintains momentum & visibility</div>
+                        <div class="pro-item">Clear path to leadership with lower risk</div>
+                    </td>
+                    <td>
+                        <div class="pro-item">Builds business acumen and P&L ownership</div>
+                        <div class="pro-item">Opens paths to GM or COO</div>
+                        <div class="pro-item">Offers dynamic, strategic stretch</div>
+                        <div class="pro-item">Develops breadth & executive range</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Cons</strong></td>
+                    <td>
+                        <div class="con-item">Growth may feel slow or predictable</div>
+                        <div class="con-item">May lack big "reinvention" moment</div>
+                        <div class="con-item">Could get too comfortable</div>
+                    </td>
+                    <td>
+                        <div class="con-item">Higher workload & ambiguity</div>
+                        <div class="con-item">May require relocation or deeper alignment with corp strategy</div>
+                        <div class="con-item">More politics and pressure</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Best For</strong></td>
+                    <td>Someone who values sustainable growth and emotional balance. Prioritizing lifestyle and personal goals alongside work</td>
+                    <td>Someone ready to bet big on futurescope. Willing to stretch fast for high reward and visibility</td>
+                </tr>
+                <tr>
+                    <td><strong>Energy Match (Now)</strong></td>
+                    <td>
+                        <div class="energy-match energy-positive">
+                            <span class="energy-icon"><i class="fas fa-check-circle"></i></span>
+                            Emotionally steady, centered, and values peace
+                        </div>
+                    </td>
+                    <td>
+                        <div class="energy-match energy-warning">
+                            <span class="energy-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                            Might feel overstimulating or misaligned with current bandwidth
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="d-flex justify-content-center mt-4 mb-4">
+            <button class="btn btn-primary" onclick="window.location.href='chatbot.html?returnFromComparison=true'">
+                Return to Chat
+            </button>
+        </div>
+    </div>
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle between scenario options
+            const scenarioOptions = document.querySelectorAll('.scenario-option');
+            
+            scenarioOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    scenarioOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

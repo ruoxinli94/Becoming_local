@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becoming - Future Self Letter</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .letter-container {
+            max-width: 480px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .letter-header {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .letter-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            position: relative;
+            background-color: #f8f9fa;
+        }
+        
+        .scroll-paper {
+            background-color: #f2f2f2;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px 25px;
+            position: relative;
+            margin-bottom: 50px;
+            transform: rotate(-2deg);
+            background-image: url('assets/images/paper-texture.jpg');
+            background-size: cover;
+        }
+        
+        .scroll-top {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: -30px -25px 20px -25px;
+            position: relative;
+        }
+        
+        .scroll-bottom {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px -25px -30px -25px;
+            position: relative;
+        }
+        
+        .letter-content {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        .letter-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .fingerprint-area {
+            position: absolute;
+            bottom: 70px;
+            right: 35px;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(249, 161, 174, 0.6);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .fingerprint-area.pressed {
+            background-color: rgba(249, 161, 174, 0.9);
+            transform: scale(0.95);
+        }
+        
+        .fingerprint-icon {
+            font-size: 2rem;
+            color: rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .fingerprint-area:hover .fingerprint-icon {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .fingerprint-area.pressed .fingerprint-icon {
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .fingerprint-instruction {
+            position: absolute;
+            bottom: 160px;
+            right: 30px;
+            font-size: 0.8rem;
+            color: #666;
+            width: 100px;
+            text-align: center;
+        }
+        
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .success-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .success-icon {
+            font-size: 5rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        .success-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .continue-btn {
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .continue-btn:hover {
+            background-color: #5649c0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .signature {
+            font-family: 'Caveat', cursive;
+            font-weight: 600;
+            font-size: 1.6rem;
+            margin-top: 20px;
+            color: #555;
+        }
+        
+        .letter-content strong {
+            color: #6c5ce7;
+        }
+        
+        .letter-content em {
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="letter-container">
+        <div class="letter-header">
+            <a href="javascript:history.back()" class="btn btn-link text-dark">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h5 class="m-0">Future Self Letter</h5>
+            <div style="width: 30px;"></div> <!-- Spacer for alignment -->
+        </div>
+        
+        <div class="letter-scroll">
+            <div class="scroll-paper">
+                <div class="scroll-top"></div>
+                
+                <div class="letter-content">
+                    <h4 class="letter-title">Dear Me,</h4>
+                    
+                    <p>You did it. You became a <strong>Director/VP of Product in GenAI</strong>—right on time, five years on the dot. And the best part? You never compromised. You held fast to your holy trinity: <strong>stability</strong>, <strong>work-life balance</strong>, and <strong>joy at work</strong>. No 80-hour weeks. No performative hustle. Just clarity, grit, and a damn good sense of direction.</p>
+                    
+                    <p>Remember when your scope felt stagnant and you were stuck in stakeholder limbo? Instead of spiraling, you mapped a growth plan in <em>Becoming</em>, tracked tiny wins like a nerdy little legend, and found momentum. You leaned into the <em>community check-ins</em>, soaked up the coaching sessions, and slowly rebuilt influence. That one cross-functional initiative? Yep—the one you almost didn't lead? That became your launchpad.</p>
+                    
+                    <p>There were hard moments—when titles dangled but didn't align, when you doubted if you'd ever <em>feel</em> like a VP. But you always came back to your values, and you always chose forward. You didn't chase prestige—you built <em>credibility with soul</em>.</p>
+                    
+                    <p>Now, you wake up <strong>happy</strong>, <strong>free</strong>, and <strong>stable AF</strong>. Your calendar has breathing room. Your voice carries weight. And your inner child? She's out here doing cartwheels in a power blazer.</p>
+                    
+                    <p>Keep holding that vision. Keep making bold yet grounded choices. It's already happening.</p>
+                    
+                    <p>With pride, with love, and with a glass of overpriced natural wine— <strong>Future You 🍷💼💛</strong></p>
+                    
+                    <p>With deep trust in your becoming,</p>
+                    
+                    <div class="signature">Future Ke<br>Director/VP, GenAI Product 🌿</div>
+                </div>
+                
+                <div class="scroll-bottom"></div>
+            </div>
+        </div>
+        
+        <div class="fingerprint-instruction">Long press to commit</div>
+        
+        <div class="fingerprint-area" id="fingerprintArea">
+            <i class="fas fa-fingerprint fingerprint-icon"></i>
+        </div>
+    </div>
+    
+    <!-- Success Overlay -->
+    <div class="success-overlay" id="successOverlay">
+        <i class="fas fa-check-circle success-icon"></i>
+        <div class="success-message">You've committed to your future self!</div>
+        <button class="continue-btn" id="continueBtn">Continue to Dashboard</button>
+    </div>
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fingerprintArea = document.getElementById('fingerprintArea');
+            const successOverlay = document.getElementById('successOverlay');
+            const continueBtn = document.getElementById('continueBtn');
+            
+            let pressTimer;
+            let isPressed = false;
+            
+            // Start pressing
+            fingerprintArea.addEventListener('mousedown', startPress);
+            fingerprintArea.addEventListener('touchstart', startPress);
+            
+            // Cancel pressing if mouse/touch moves out
+            fingerprintArea.addEventListener('mouseout', cancelPress);
+            fingerprintArea.addEventListener('touchmove', cancelPress);
+            
+            // End pressing
+            fingerprintArea.addEventListener('mouseup', endPress);
+            fingerprintArea.addEventListener('touchend', endPress);
+            
+            // Continue button action
+            continueBtn.addEventListener('click', function() {
+                window.location.href = 'growth-plan.html';
+            });
+            
+            function startPress(e) {
+                if (e.type === 'touchstart') {
+                    e.preventDefault(); // Prevent default touch behavior
+                }
+                
+                isPressed = true;
+                fingerprintArea.classList.add('pressed');
+                
+                // Set a timeout for "long press"
+                pressTimer = setTimeout(function() {
+                    if (isPressed) {
+                        showSuccess();
+                    }
+                }, 1500); // 1.5 seconds for long press
+            }
+            
+            function cancelPress() {
+                if (isPressed) {
+                    isPressed = false;
+                    fingerprintArea.classList.remove('pressed');
+                    clearTimeout(pressTimer);
+                }
+            }
+            
+            function endPress() {
+                cancelPress();
+            }
+            
+            function showSuccess() {
+                // Add vibration if supported
+                if (navigator.vibrate) {
+                    navigator.vibrate(100);
+                }
+                
+                // Show success overlay
+                successOverlay.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>

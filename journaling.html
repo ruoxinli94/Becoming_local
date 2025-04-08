@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becoming - Journaling</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="px-3 py-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Journal</h2>
+                <div>
+                    <button class="btn btn-sm btn-outline-primary me-1">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                    <button class="btn btn-sm btn-primary">
+                        <i class="fas fa-plus"></i> New Entry
+                    </button>
+                </div>
+            </div>
+            
+            <div class="input-group mb-4">
+                <span class="input-group-text bg-light border-end-0">
+                    <i class="fas fa-search text-muted"></i>
+                </span>
+                <input type="text" class="form-control border-start-0 bg-light" placeholder="Search journal entries...">
+            </div>
+            
+            <div class="journal-entry mb-4">
+                <div class="d-flex justify-content-between mb-2">
+                    <h5>Reflection on Work Boundaries</h5>
+                    <span class="badge bg-primary">Today</span>
+                </div>
+                <p>Today was a milestone in my journey to better work-life balance. I successfully declined a non-essential meeting and suggested a more efficient way to share the information. My manager was actually supportive, which reinforced that setting boundaries is about working smarter, not less.</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        <span class="badge rounded-pill bg-light text-dark me-1">work</span>
+                        <span class="badge rounded-pill bg-light text-dark">boundaries</span>
+                    </div>
+                    <div class="text-muted small">4:30 PM</div>
+                </div>
+            </div>
+            
+            <div class="journal-entry mb-4">
+                <div class="d-flex justify-content-between mb-2">
+                    <h5>Morning Meditation Insights</h5>
+                    <span class="badge bg-secondary">Yesterday</span>
+                </div>
+                <p>During this morning's meditation, I noticed how much anxiety I've been carrying about potential emergencies at work. I realized that most of what I worry about never happens, and the constant state of alertness is draining my energy. Going to focus on being present today.</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        <span class="badge rounded-pill bg-light text-dark me-1">meditation</span>
+                        <span class="badge rounded-pill bg-light text-dark">mindfulness</span>
+                    </div>
+                    <div class="text-muted small">7:45 AM</div>
+                </div>
+            </div>
+            
+            <div class="journal-entry mb-4">
+                <div class="d-flex justify-content-between mb-2">
+                    <h5>Weekend Reflections</h5>
+                    <span class="badge bg-secondary">2 days ago</span>
+                </div>
+                <p>Spent the weekend without checking work emails for the first time in months. It was surprisingly difficult at first—I kept having the urge to "just check quickly." By Sunday, though, I felt much more relaxed and present with my family. Need to make this a regular practice.</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        <span class="badge rounded-pill bg-light text-dark me-1">digital detox</span>
+                        <span class="badge rounded-pill bg-light text-dark">family</span>
+                    </div>
+                    <div class="text-muted small">8:15 PM</div>
+                </div>
+            </div>
+            
+            <div class="journal-entry mb-4">
+                <div class="d-flex justify-content-between mb-2">
+                    <h5>Difficult Conversation Planning</h5>
+                    <span class="badge bg-secondary">5 days ago</span>
+                </div>
+                <p>Preparing for that conversation with my manager about workload. I'm nervous but know it's necessary. Made a list of specific examples of how the current pace is affecting work quality and my wellbeing. Going to practice with the AI coach's simulation first.</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        <span class="badge rounded-pill bg-light text-dark me-1">work</span>
+                        <span class="badge rounded-pill bg-light text-dark">communication</span>
+                    </div>
+                    <div class="text-muted small">9:00 PM</div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-primary">Load More Entries</button>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="chatbot.html" class="nav-item">
+                <i class="nav-icon fas fa-comment-alt"></i>
+                <span>Coach</span>
+            </a>
+            <a href="growth-plan.html" class="nav-item">
+                <i class="nav-icon fas fa-chart-line"></i>
+                <span>Growth</span>
+            </a>
+            <a href="daily-tracker.html" class="nav-item">
+                <i class="nav-icon fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="journaling.html" class="nav-item active">
+                <i class="nav-icon fas fa-book"></i>
+                <span>Journal</span>
+            </a>
+            <a href="scheduler.html" class="nav-item">
+                <i class="nav-icon fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
