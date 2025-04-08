@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becoming - Weekly Plan Summary</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Additional styles for the chat interface */
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .container-fluid {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            padding-bottom: 80px;
+            position: relative;
+        }
+        .week-header {
+            text-align: center;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            background-color: #f5f2e8;
+            border-radius: 10px;
+        }
+        .focus-area {
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .task-category {
+            margin-bottom: 25px;
+        }
+        .task-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .task-item {
+            background-color: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+        }
+        .task-item i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        .task-category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .category-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+        }
+        .work-icon {
+            background-color: var(--primary-color);
+        }
+        .learning-icon {
+            background-color: var(--accent-color);
+        }
+        .wellbeing-icon {
+            background-color: var(--success-color);
+        }
+        .navigation-button {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1001;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid px-3 py-4">
+            <h2 class="mb-4">Weekly Plan</h2>
+            
+            <div class="week-header">
+                <h4 class="mb-0">Week 1: April 8-14, 2025</h4>
+                <p class="text-muted mb-0">Building Core Skills</p>
+            </div>
+            
+            <div class="focus-area mb-4">
+                <h5>In week 1, you will focus on</h5>
+                <ul>
+                    <li>Learning core GenAI concepts and terminology</li>
+                    <li>Establishing a daily journaling routine</li>
+                    <li>Setting up initial meetings with stakeholders</li>
+                </ul>
+            </div>
+            
+            <div class="task-category">
+                <div class="task-category-header">
+                    <div class="category-icon work-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h5 class="mb-0">Work Tasks</h5>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Schedule 1:1 with manager to discuss growth goals</span>
+                    </li>
+                    <li class="task-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Identify key stakeholders for your GenAI projects</span>
+                    </li>
+                    <li class="task-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Review current product roadmap for AI integration</span>
+                    </li>
+                    <li class="task-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Document current understanding of GenAI landscape</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="task-category">
+                <div class="task-category-header">
+                    <div class="category-icon learning-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h5 class="mb-0">Learning Tasks</h5>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Complete "Intro to GenAI for Product Managers" course</span>
+                    </li>
+                    <li class="task-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Research 3 successful GenAI products in your industry</span>
+                    </li>
+                    <li class="task-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Set up a system to track industry news and updates</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="task-category">
+                <div class="task-category-header">
+                    <div class="category-icon wellbeing-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h5 class="mb-0">Wellbeing Tasks</h5>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Establish a daily journaling routine (15 min)</span>
+                    </li>
+                    <li class="task-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Schedule 2 focused deep work sessions (90 min each)</span>
+                    </li>
+                    <li class="task-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Plan one networking coffee chat</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="text-center mt-4">
+                <p class="text-muted">Tap the arrow button to proceed to your daily tasks</p>
+            </div>
+        </div>
+        
+        <div class="navigation-button" id="nextButton">
+            <i class="fas fa-arrow-right"></i>
+        </div>
+    </div>
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/script.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextButton = document.getElementById('nextButton');
+            
+            // Handle next button
+            nextButton.addEventListener('click', function() {
+                window.location.href = 'daily-tracker.html';
+            });
+        });
+    </script>
+</body>
+</html>

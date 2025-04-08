@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becoming - Connect Calendar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Additional styles for the chat interface */
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        
+        .chat-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .connect-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+            width: 100%;
+        }
+        .connect-card:hover {
+            transform: translateY(-5px);
+        }
+        .calendar-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: white;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+        .google-icon {
+            background-color: #DB4437;
+        }
+        .outlook-icon {
+            background-color: #0078D4;
+        }
+        .apple-icon {
+            background-color: #555555;
+        }
+        .connect-card-body {
+            display: flex;
+            align-items: center;
+        }
+        .connect-btn {
+            min-width: 100px;
+        }
+        .navigation-button {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1001;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-body d-flex flex-column justify-content-center">
+                <div class="message bot-message text-center">
+                    <p>Great! Your growth plan is confirmed. To help you schedule your tasks, let's connect your calendar from Outlook, Google, or Apple Calendar. This will allow me to suggest optimal times for your development activities.</p>
+                </div>
+                
+                <div class="container mt-4 mx-auto" style="max-width: 360px;">
+                    <div class="connect-card">
+                        <div class="connect-card-body">
+                            <div class="calendar-icon google-icon">
+                                <i class="fab fa-google"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Google Calendar</h5>
+                                <p class="mb-0 text-muted">Connect your Google calendar</p>
+                            </div>
+                            <button class="btn btn-primary connect-btn" id="connectGoogle">Connect</button>
+                        </div>
+                    </div>
+                    
+                    <div class="connect-card">
+                        <div class="connect-card-body">
+                            <div class="calendar-icon outlook-icon">
+                                <i class="fab fa-microsoft"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Outlook Calendar</h5>
+                                <p class="mb-0 text-muted">Connect your Outlook calendar</p>
+                            </div>
+                            <button class="btn btn-primary connect-btn" id="connectOutlook">Connect</button>
+                        </div>
+                    </div>
+                    
+                    <div class="connect-card">
+                        <div class="connect-card-body">
+                            <div class="calendar-icon apple-icon">
+                                <i class="fab fa-apple"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Apple Calendar</h5>
+                                <p class="mb-0 text-muted">Connect your Apple calendar</p>
+                            </div>
+                            <button class="btn btn-primary connect-btn" id="connectApple">Connect</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4 mb-3">
+                    <button class="btn btn-outline-secondary" id="skipButton" style="width: 180px;">
+                        Skip this step <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="navigation-button" id="nextButton" style="display: none;">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/script.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const connectButtons = document.querySelectorAll('.connect-btn');
+            const nextButton = document.getElementById('nextButton');
+            const skipButton = document.getElementById('skipButton');
+            
+            // Handle calendar connection buttons
+            connectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const originalText = this.textContent;
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                    
+                    // Simulate connection process
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-check"></i> Connected';
+                        this.classList.remove('btn-primary');
+                        this.classList.add('btn-success');
+                        this.disabled = true;
+                        
+                        // After successful connection, redirect to weekly plan
+                        setTimeout(() => {
+                            window.location.href = 'weekly-plan-summary.html';
+                        }, 1000);
+                    }, 1500);
+                });
+            });
+            
+            // Handle next button
+            nextButton.addEventListener('click', function() {
+                window.location.href = 'weekly-plan-summary.html';
+            });
+            
+            // Handle skip button
+            skipButton.addEventListener('click', function() {
+                window.location.href = 'weekly-plan-summary.html';
+            });
+        });
+    </script>
+</body>
+</html>

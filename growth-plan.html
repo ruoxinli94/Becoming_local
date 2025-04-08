@@ -132,6 +132,10 @@
                     <span class="message-time">10:35 AM</span>
                 </div>
                 
+                <div class="text-center mt-4 mb-3">
+                    <button class="btn btn-primary btn-lg" id="confirmPlanBtn">Confirm Plan</button>
+                </div>
+                
                 <div id="planConfirmed" class="message message-bot">
                     <p>Great! Your 5-year growth plan is confirmed. Let's break down what your weekly tasks will look like for Year 1: Building Core Skills.</p>
                     <span class="message-time">10:40 AM</span>
@@ -189,6 +193,7 @@
             const chatBody = document.querySelector('.chat-body');
             const planConfirmed = document.getElementById('planConfirmed');
             const nextButton = document.getElementById('nextButton');
+            const confirmPlanBtn = document.getElementById('confirmPlanBtn');
             
             sendPlanBtn.addEventListener('click', handlePlanResponse);
             planInput.addEventListener('keypress', function(e) {
@@ -197,8 +202,25 @@
                 }
             });
             
+            // Event listener for Confirm Plan button
+            if (confirmPlanBtn) {
+                confirmPlanBtn.addEventListener('click', function() {
+                    // Show confirmation and next button
+                    planConfirmed.style.display = 'block';
+                    nextButton.style.display = 'flex';
+                    
+                    // Hide the confirm plan button
+                    this.style.display = 'none';
+                    
+                    // Scroll to bottom
+                    setTimeout(() => {
+                        chatBody.scrollTop = chatBody.scrollHeight;
+                    }, 100);
+                });
+            }
+            
             nextButton.addEventListener('click', function() {
-                window.location.href = 'weekly-tasks.html';
+                window.location.href = 'calendar-connect.html';
             });
             
             function handlePlanResponse() {
